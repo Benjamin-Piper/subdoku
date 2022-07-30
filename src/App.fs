@@ -153,8 +153,8 @@ let render (state: State) (dispatch: Msg -> unit) =
 
       Html.ul [
         prop.classes [
-          "text-8xl text-center place-content-evenly"
-          "md:mt-32 md:flex"
+          "text-5xl text-center place-content-evenly"
+          "md:text-8xl md:mt-32 md:flex"
         ]
         prop.children [
           for index, item in Array.indexed state.line ->
@@ -173,13 +173,17 @@ let render (state: State) (dispatch: Msg -> unit) =
       ]
 
       Html.div [
-        prop.className "text-2xl w-64 mt-16 mx-auto grid grid-cols-3"
+        prop.classes [
+          "w-48 mt-8 mx-auto grid grid-cols-3"
+          "md:w-64 md:mt-16"
+        ]
         prop.children [
           for digit in 1 .. Array.length state.line ->
             Html.button [
               let isMarked = state.status <> Unsubmitted
               prop.classes [
-                "py-4 border-2 border-black m-1"
+                "text-xl border-2 py-2 border-black m-1"
+                "md:text-2xl md:py-4"
                 (if isMarked then "opacity-30" else "")
               ]
               prop.disabled isMarked
