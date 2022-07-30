@@ -1,0 +1,31 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: lts/*
+          cache: "npm"
+
+      - name: Install and Build
+        run: |
+          npm run postinstall
+          npm ci
+          npm run build
+
+      - name: Deploy 
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist
